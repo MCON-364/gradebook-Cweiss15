@@ -26,7 +26,9 @@ public class Gradebook {
             gradesByStudent.get(name).add(grade);
             activityLog.add("Grade of " + grade + " was added for " + name);
             UndoAction undoAction = gradebook -> {List<Integer> grades = gradesByStudent.get(name);
-            grades.remove(grades.size()-1);};
+            grades.remove(grades.size()-1);
+            activityLog.add("Adding grade of " + grade + " to " + name + "was undone");
+            };
             undoStack.push(undoAction);
             return true;
         }
@@ -46,6 +48,7 @@ public class Gradebook {
                         gradesByStudent.get(name).add(grade);
                     }
                 }
+                activityLog.add("removing " + name + " was undone.");
             };
             undoStack.push(undoAction);
             return true;

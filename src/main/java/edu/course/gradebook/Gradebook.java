@@ -104,13 +104,12 @@ public class Gradebook {
             return Optional.empty();
         }
         for (String name: gradesByStudent.keySet()) {
-            Optional<Double> average = averageFor(name);
-            if (average.isPresent()) {
-                total+=average.get();
+            for (Integer grade : gradesByStudent.get(name)) {
+                total += grade;
                 cnt++;
             }
         }
-        if (total==0) return Optional.empty();
+        if (cnt==0) return Optional.empty();
         activityLog.add("A class average of " + total / cnt + " was calculated");
         return Optional.of(total/cnt);
     }
